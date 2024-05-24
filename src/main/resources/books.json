@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "title": "Der Alchimist",
+    "description": "Eine fesselnde Erzählung über Träume, Schicksal und die Suche nach dem Lebenssinn.",
+    "author": "Paulo Coelho",
+    "pages": 208
+  },
+  {
+    "id": "2",
+    "title": "Harry Potter und der Stein der Weisen",
+    "description": "Die spannende Einführung in die Welt der Zauberei und von Hogwarts.",
+    "author": "J.K. Rowling",
+    "pages": 336
+  },
+  {
+    "id": "3",
+    "title": "1984",
+    "description": "Eine dystopische Vision einer totalitären Gesellschaft, in der Gedankenkontrolle allgegenwärtig ist.",
+    "author": "George Orwell",
+    "pages": 328
+  },
+  {
+    "id": "4",
+    "title": "To Kill a Mockingbird",
+    "description": "Ein Klassiker, der Rassismus und moralische Fragen in den Südstaaten der USA behandelt.",
+    "author": "Harper Lee",
+    "pages": 336
+  },
+  {
+    "id": "5",
+    "title": "Pride and Prejudice",
+    "description": "Eine romantische Komödie, die die Vorurteile und gesellschaftlichen Normen des frühen 19. Jahrhunderts aufzeigt.",
+    "author": "Jane Austen",
+    "pages": 279
+  }
+]
