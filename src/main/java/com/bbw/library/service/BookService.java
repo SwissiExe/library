@@ -2,13 +2,16 @@ package com.bbw.library.service;
 
 import com.bbw.library.model.Book;
 import com.bbw.library.repository.BookRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class BookService {
+
+    @Autowired
     private final BookRepository bookRepository;
 
     public BookService(BookRepository bookRepository) {
@@ -19,5 +22,29 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
+    public Book getBookById(Long id) {
+        Optional<Book> book = this.bookRepository.findById(id);
+        return book.orElse(null);
+    }
 
+    public Book addBook(Book book) {
+        return this.bookRepository.save(book);
+    }
+
+    public Book updateBook(Long id, Book bookDetails) {
+        Optional<Book> bookOptional = this.bookRepository.findById(id);
+        if (bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            book.setTitle(bookDetails.getTitle());
+            book.setAuthor(bookDetails.getAuthor());
+            book.setPages(bookDetails.getPages());
+            return this.bookRepository.save(book);
+        } else {
+            return null;
+        }
+    }
+
+    public void deleteBook(Long id) {
+        this.bookRepository.deleteById(id);
+    }
 }
