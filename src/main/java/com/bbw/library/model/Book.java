@@ -15,9 +15,10 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     private String title;
     private String description;
     private String author;
     private int pages;
+    private String img;
 }

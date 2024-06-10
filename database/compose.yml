@@ -3,10 +3,10 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql-container
+    container_name: library_Container
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: example_database
+      MYSQL_DATABASE: library_Container
       MYSQL_USER: test
       MYSQL_PASSWORD: 1234
     ports:

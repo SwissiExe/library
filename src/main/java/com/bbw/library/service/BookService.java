@@ -11,12 +11,13 @@ import java.util.Optional;
 @Service
 public class BookService {
 
-    @Autowired
     private final BookRepository bookRepository;
 
+    @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
+
 
     public List<Book> getAllBooks() {
         return this.bookRepository.findAll();
@@ -38,6 +39,7 @@ public class BookService {
             book.setTitle(bookDetails.getTitle());
             book.setAuthor(bookDetails.getAuthor());
             book.setPages(bookDetails.getPages());
+            book.setImg(bookDetails.getImg());
             return this.bookRepository.save(book);
         } else {
             return null;

@@ -1,6 +1,7 @@
 package com.bbw.library.controller;
 
 import com.bbw.library.model.Book;
+import com.bbw.library.repository.BookRepository;
 import com.bbw.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +10,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
+@CrossOrigin("*")
 public class BookController {
 
-    private BookService bookService;
+    private final BookService bookService;
+
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping("/get/books")
     public List<Book> getAllBooks() {
