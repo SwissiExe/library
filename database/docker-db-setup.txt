@@ -1,10 +1,40 @@
--- 2024-06-10 10:37:14.5730
+-- 2024-06-11 08:23:18.4250
 USE `library_Container`;
 
--- 2024-06-10 10:37:56.4050
+-- 2024-06-11 08:23:19.9070
+SELECT
+  data_length AS `data_size`,
+  index_length AS `index_size`,
+  (data_length + index_length) AS `total_size`,
+  table_comment AS `comment`
+FROM
+  information_schema.TABLES
+WHERE
+  table_schema = "library_Container"
+  AND table_name = "book";
+
+-- 2024-06-11 08:23:19.9300
+SELECT * FROM `library_Container`.`book` ORDER BY `id` LIMIT 300 OFFSET 0;
+
+-- 2024-06-11 08:23:19.9350
+SELECT table_rows as count FROM information_schema.TABLES WHERE TABLE_SCHEMA='library_Container'AND TABLE_NAME='book';
+
+-- 2024-06-11 08:23:19.9350
+SELECT COUNT(*) as count FROM `library_Container`.`book`;
+
+-- 2024-06-11 08:23:21.1420
+SELECT ordinal_position as ordinal_position,column_name as column_name,column_type AS data_type,character_set_name as character_set,collation_name as collation,is_nullable as is_nullable,column_default as column_default,extra as extra,column_name AS foreign_key,column_comment AS comment FROM information_schema.columns WHERE table_schema='library_Container'AND table_name='book';
+
+-- 2024-06-11 08:23:21.1470
+SELECT sub_part as index_length,index_name as index_name,index_type AS index_algorithm,CASE non_unique WHEN 0 THEN'TRUE'ELSE'FALSE'END AS is_unique,column_name as column_name FROM information_schema.statistics WHERE table_schema='library_Container'AND table_name='book'ORDER BY seq_in_index ASC;
+
+-- 2024-06-11 08:23:44.5860
+DROP TABLE `library_Container`.`book`;
+
+-- 2024-06-11 08:23:50.0590
 SELECT sub_part as index_length,index_name as index_name,index_type AS index_algorithm,CASE non_unique WHEN 0 THEN'TRUE'ELSE'FALSE'END AS is_unique,column_name as column_name FROM information_schema.statistics WHERE table_schema='library_Container'AND table_name='untitled_table_1'ORDER BY seq_in_index ASC;
 
--- 2024-06-10 10:37:56.4090
+-- 2024-06-11 08:23:50.0620
 SELECT
   data_length AS `data_size`,
   index_length AS `index_size`,
@@ -16,17 +46,11 @@ WHERE
   table_schema = "library_Container"
   AND table_name = "untitled_table_1";
 
--- 2024-06-10 10:38:39.4750
-CREATE TABLE `library_Container`.`book` (`id` varchar(255) AUTO_INCREMENT,`title` varchar(255),`description` varchar(255),`author` varchar(255),`pages` int, PRIMARY KEY (id));
+-- 2024-06-11 08:25:02.5850
+CREATE TABLE `library_Container`.`book` (`id` int AUTO_INCREMENT,`title` varchar(255),`description` varchar(255),`author` varchar(255),`pages` int,`genres` varchar(255),`img` varchar(255),`releasedate` date, PRIMARY KEY (id));
 
--- 2024-06-10 10:38:47.7000
-CREATE TABLE `library_Container`.`book` (`id` varchar(255) NOT NULL AUTO_INCREMENT,`title` varchar(255),`description` varchar(255),`author` varchar(255),`pages` int, PRIMARY KEY (id));
-
--- 2024-06-10 10:38:56.1400
-CREATE TABLE `library_Container`.`book` (`id` int NOT NULL AUTO_INCREMENT,`title` varchar(255),`description` varchar(255),`author` varchar(255),`pages` int, PRIMARY KEY (id));
-
--- 2024-06-10 10:38:56.1590
+-- 2024-06-11 08:25:02.6000
 SELECT ordinal_position as ordinal_position,column_name as column_name,column_type AS data_type,character_set_name as character_set,collation_name as collation,is_nullable as is_nullable,column_default as column_default,extra as extra,column_name AS foreign_key,column_comment AS comment FROM information_schema.columns WHERE table_schema='library_Container'AND table_name='book';
 
--- 2024-06-10 10:38:56.1610
+-- 2024-06-11 08:25:02.6020
 SELECT sub_part as index_length,index_name as index_name,index_type AS index_algorithm,CASE non_unique WHEN 0 THEN'TRUE'ELSE'FALSE'END AS is_unique,column_name as column_name FROM information_schema.statistics WHERE table_schema='library_Container'AND table_name='book'ORDER BY seq_in_index ASC;

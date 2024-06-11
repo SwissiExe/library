@@ -5,6 +5,7 @@ import com.bbw.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,8 @@ public class BookService {
             book.setAuthor(bookDetails.getAuthor());
             book.setPages(bookDetails.getPages());
             book.setImg(bookDetails.getImg());
+            book.setGenres(bookDetails.getGenres());
+            book.setReleasedate(bookDetails.getReleasedate());
             return this.bookRepository.save(book);
         } else {
             return null;

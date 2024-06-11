@@ -1,11 +1,12 @@
 package com.bbw.library.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -20,5 +21,8 @@ public class Book {
     private String description;
     private String author;
     private int pages;
+    private String genres;
     private String img;
+    @Column(name = "releasedate")  // Specify the column name explicitly
+    private Date releasedate;
 }
