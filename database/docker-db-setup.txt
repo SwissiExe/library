@@ -54,3 +54,38 @@ SELECT ordinal_position as ordinal_position,column_name as column_name,column_ty
 
 -- 2024-06-11 08:25:02.6020
 SELECT sub_part as index_length,index_name as index_name,index_type AS index_algorithm,CASE non_unique WHEN 0 THEN'TRUE'ELSE'FALSE'END AS is_unique,column_name as column_name FROM information_schema.statistics WHERE table_schema='library_Container'AND table_name='book'ORDER BY seq_in_index ASC;
+
+-- Create the 'review' table
+CREATE TABLE `library_Container`.`review` (
+  `id` int AUTO_INCREMENT,
+  `book_id` int,
+  `name` varchar(255),
+  `rating` int,
+  `comment` text,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`book_id`) REFERENCES `library_Container`.`book`(`id`)
+);
+
+-- Display structure of the 'review' table
+SELECT ordinal_position as ordinal_position,
+       column_name as column_name,
+       column_type AS data_type,
+       character_set_name as character_set,
+       collation_name as collation,
+       is_nullable as is_nullable,
+       column_default as column_default,
+       extra as extra,
+       column_name AS foreign_key,
+       column_comment AS comment
+FROM information_schema.columns
+WHERE table_schema='library_Container' AND table_name='review';
+
+-- Display indexes of the 'review' table
+SELECT sub_part as index_length,
+       index_name as index_name,
+       index_type AS index_algorithm,
+       CASE non_unique WHEN 0 THEN 'TRUE' ELSE 'FALSE' END AS is_unique,
+       column_name as column_name
+FROM information_schema.statistics
+WHERE table_schema='library_Container' AND table_name='review'
+ORDER BY seq_in_index ASC;
