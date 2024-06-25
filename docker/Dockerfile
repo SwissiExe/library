@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.6-openjdk-22 AS build
+FROM maven:3.8.6-openjdk-11 AS build
 
 # Set the working directory
 WORKDIR /app
