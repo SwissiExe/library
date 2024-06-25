@@ -1,17 +1,14 @@
-FROM maven:3.9-eclipse-temurin-22 AS builder
+# Use a slim Java 17 image as the base
+FROM openjdk:22-slim
+
+# Set working directory in the container
 WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-COPY src src
-RUN mvn package 
-RUN java -Djarmode=layertools -jar target/spring-boot-docker-1.0.0.jar extract
-  
-FROM eclipse-temurin:22-jre-alpine
-RUN addgroup -S demo && adduser -S demo -G demo
-USER demo
-WORKDIR /app
-COPY --from=builder app/dependencies/ ./
-COPY --from=builder app/spring-boot-loader/ ./
-COPY --from=builder app/snapshot-dependencies/ ./
-COPY --from=builder app/application/ ./
-ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
+
+# Copy the application JAR file from the context
+COPY target/*.jar app.jar
+
+# Expose the port your application runs on (replace 8080 with your actual port)
+EXPOSE 8080
+
+# Command to run the application
+CMD ["java", "-jar", "app.jar"]
