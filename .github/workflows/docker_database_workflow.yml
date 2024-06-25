@@ -17,15 +17,15 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      # Start the database container (assuming it's defined in docker-docker-compose.yml)
+      # Start the database container (assuming it's defined in ./database/docker-compose.yml)
       - name: Start database container
-        run: docker exec -it database/library_Container bash
+        run: docker-compose -f ./database/docker-compose.yml up -d mysql
 
       # Wait for the database to be ready (adjust timeout as needed)
       - name: Wait for database
         run: |
           for i in {1..10}; do
-            if docker exec ${{ secrets.DB_NAME }} mysql -u test -ptest 1234 -h "localhost" -P 3306 -e "SELECT 1"; then
+            if docker exec mysql_container_name mysql -u test -ptest 1234 -h "localhost" -P 3306 -e "SELECT 1"; then
               echo "Database is ready"
               exit 0
             fi
@@ -35,23 +35,17 @@ jobs:
           echo "Database is not ready after 50 seconds, failing..."
           exit 1
 
-      # Dump the database
-      - name: Dump database
-        run: docker exec ${{ secrets.DB_NAME }} mysqldump -u test -ptest 1234 ${{ secrets.DB_NAME }} > database_backup.sql
+      # Commit the database container as a new image
+      - name: Commit database container
+        run: docker commit mysql_container_name ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
+
+      # Push the new image to Docker Hub
+      - name: Push database image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
 
       # Stop the database container
       - name: Stop database container
-        run: docker-compose down
-
-      # Create a new image with the backup
-      - name: Create backup image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest .
-
-      # Push the backup image to Docker Hub
-      - name: Push backup image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
-
+        run: docker-compose -f ./database/docker-compose.yml down
 
   pull-from-docker-hub-and-push-to-ecr:
     runs-on: ubuntu-latest
