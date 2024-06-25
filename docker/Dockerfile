@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.6-openjdk-11 AS build
+FROM maven:3.8.6-openjdk-22 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -13,14 +13,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
-FROM oraclelinux:8-slim
-
-# Install Oracle OpenJDK 22
-RUN yum -y install oraclelinux-developer-release-el8 && \
-    yum-config-manager --enable ol8_developer && \
-    yum -y install java-22-openjdk java-22-openjdk-devel && \
-    yum clean all && \
-    rm -rf /var/cache/yum
+FROM openjdk:22
 
 # Set the working directory
 WORKDIR /app
