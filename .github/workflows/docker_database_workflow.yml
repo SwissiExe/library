@@ -42,7 +42,7 @@ jobs:
 
       # Push the new image to Docker Hub
       - name: Push database image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/librarydatabase:latest
 
       # Stop the database container
       - name: Stop database container
