@@ -21,19 +21,19 @@ jobs:
       - name: Start database container
         run: docker-compose -f ./database/docker-compose.yml up -d mysql
 
-      # Wait for the database to be ready (adjust timeout as needed)
       - name: Wait for database
         run: |
           for i in {1..10}; do
-            if docker exec -i -t library_Container /bin/bash -c "test@1234" -e "SELECT 1"; then
-              echo "Database is ready"
-              exit 0
-            fi
-            echo "Waiting for database to be ready..."
+            docker exec library_Container mysql -u test -ptest 1234 -h "localhost" -P 3306 -e "SELECT 1" && break  # Exit loop if successful
             sleep 5
-          done
-          echo "Database is not ready after 50 seconds, failing..."
-          exit 1
+            echo "Waiting for database to be ready..."
+          done;
+          if [[ $? -eq 0 ]]; then
+            echo "Database is ready"
+          else
+            echo "Database is not ready after 50 seconds, failing..."
+            exit 1
+          fi
 
       # Commit the database container as a new image
       - name: Commit database container
