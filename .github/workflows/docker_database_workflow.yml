@@ -73,7 +73,7 @@ jobs:
 
       - name: Pull Docker Image from Docker Hub
         env:
-          DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}
+          DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/librarydatabase
           IMAGE_TAG: latest
         run: |
           echo "Pulling the Docker image from Docker Hub..."
@@ -83,7 +83,7 @@ jobs:
         env:
           ECR_REGISTRY: public.ecr.aws/r9f0w2i7
           ECR_REPOSITORY: librarydatabase
-          DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}
+          DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/librarydatabase
           IMAGE_TAG: latest
         run: |
           echo "Tagging the Docker image..."
