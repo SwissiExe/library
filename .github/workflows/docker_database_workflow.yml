@@ -19,7 +19,7 @@ jobs:
 
       # Start the database container (assuming it's defined in docker-compose.yml)
       - name: Start database container
-        run: docker-compose up -d mysql
+        run: ./database/docker-compose up -d mysql
 
       # Wait for the database to be ready (adjust timeout as needed)
       - name: Wait for database
