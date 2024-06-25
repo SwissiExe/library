@@ -73,7 +73,7 @@ jobs:
       - name: Tag and Push Docker Image to Amazon ECR
         env:
           ECR_REGISTRY: public.ecr.aws/r9f0w2i7
-          ECR_REPOSITORY: libraryfrontend
+          ECR_REPOSITORY: librarybackend
           DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPO_NAME }}
           IMAGE_TAG: ${{ needs.build-and-push-to-docker-hub.outputs.commit-hash }}-${{ needs.build-and-push-to-docker-hub.outputs.timestamp }}
         run: |
