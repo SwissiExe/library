@@ -25,7 +25,7 @@ jobs:
       - name: Wait for database
         run: |
           for i in {1..10}; do
-            if docker exec mysql_container_name mysql -u test -ptest 1234 -h "localhost" -P 3306 -e "SELECT 1"; then
+            if docker exec library_Container mysql -u test -ptest 1234 -h "localhost" -P 3306 -e "SELECT 1"; then
               echo "Database is ready"
               exit 0
             fi
@@ -37,7 +37,7 @@ jobs:
 
       # Commit the database container as a new image
       - name: Commit database container
-        run: docker commit mysql_container_name ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
+        run: docker commit library_Container ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
 
       # Push the new image to Docker Hub
       - name: Push database image to Docker Hub
