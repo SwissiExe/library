@@ -1,5 +1,14 @@
 # Stage 1: Build the application
-FROM maven:3.8.6-openjdk-22 AS build
+FROM maven:3.8.6-openjdk-17 AS build
+
+# Install Oracle OpenJDK 22
+RUN apt-get update && apt-get install -y wget && \
+    wget https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.deb && \
+    dpkg -i jdk-22_linux-x64_bin.deb && \
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-22/bin/java 1 && \
+    update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-22/bin/javac 1 && \
+    rm jdk-22_linux-x64_bin.deb && \
+    apt-get clean
 
 # Set the working directory
 WORKDIR /app
