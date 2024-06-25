@@ -1,27 +1,29 @@
-# Stage 1: Build the application
-FROM maven:3.8.6-openjdk-11 AS build
+# Use a multi-stage build for efficiency
+FROM maven:3.8.6-openjdk-alpine AS builder
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the pom.xml and download dependencies
+# Copy pom.xml and download dependencies (offline mode for faster builds)
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# Copy the source code and build the application
+# Copy source code (consider excluding unnecessary files with .dockerignore)
 COPY src ./src
+
+# Build the application (skip tests for faster builds)
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the application
-FROM openjdk:22
+# Use a slimmer base image for the final layer
+FROM openjdk:slim-22
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
 # Copy the built application from the previous stage
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=builder /app/target/*.jar app.jar
 
-# Expose the port the app runs on
+# Expose the port
 EXPOSE 8080
 
 # Run the application
