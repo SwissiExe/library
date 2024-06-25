@@ -38,7 +38,7 @@ jobs:
 
       # Commit the database container as a new image
       - name: Commit database container
-        run: docker commit library_Container ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DB_REPO_NAME }}:latest
+        run: docker commit library_Container ${{ secrets.DOCKER_USERNAME }}/librarydatabase:latest
 
       # Push the new image to Docker Hub
       - name: Push database image to Docker Hub
