@@ -5,7 +5,7 @@ FROM openjdk:22-slim
 WORKDIR /app
 
 # Copy the application JAR file from the context
-COPY target/*.jar app.jar
+COPY ${target_dir}/*.jar app.jar
 
 # Expose the port your application runs on (replace 8080 with your actual port)
 EXPOSE 8080
