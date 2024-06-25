@@ -24,7 +24,7 @@ jobs:
       - name: Wait for database
         run: |
           for i in {1..10}; do
-            docker exec -it library_Container 1234 -e "SELECT 1" && break 
+            docker run -p 3306:3306 --name library_Container -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest && break 
             
             sleep 5
             echo "Waiting for database to be ready..."
