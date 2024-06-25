@@ -35,9 +35,9 @@ public class BookController {
         return this.bookService.addBook(book);
     }
 
-    @PutMapping("/update/book/{id}")
-    public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
-        return this.bookService.updateBook(id, book);
+    @PutMapping("/update/book")
+    public Book updateBook(@RequestBody Book book) {
+        return this.bookService.updateBook(book);
     }
 
     @DeleteMapping("/delete/book/{id}")
