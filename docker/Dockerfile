@@ -15,7 +15,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Use a slimmer base image for the final layer
-FROM openjdk:slim-22
+FROM openjdk:19-alpine
 
 # Set working directory
 WORKDIR /app
